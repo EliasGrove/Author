@@ -17,7 +17,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Querying | Elias Grove</title>
+  <title>Interrogation | Elias Grove</title>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -34,7 +34,7 @@
      justify-content: center;
      min-height: 100vh;
      margin: 0;
-     padding: 2rem;
+     padding: 0;
      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
      cursor: url('css/nugget.png') 16 16, auto; /* Assuming nugget.png is in your css folder */
      overflow-x: hidden; 
@@ -49,47 +49,42 @@
      pointer-events: none; /* Allows clicks to pass through */
      z-index: 0; /* Behind content */
    }
-   h1, h2, h3 {
-     font-family: 'EB Garamond', serif;
-   }
+   
    .content-wrapper {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
      text-align: center;
      max-width: 900px;
      width: 100%;
      position: relative; /* To ensure it's above the vignette pseudo-element */
      z-index: 1;
-   }
-   .work-page-title { /* Style for the on-page title */
-     font-family: 'EB Garamond', serif;
-     font-size: 2.75rem; /* Adjust size as you like */
-     font-weight: 600;
-     color: #e9e9e9; /* Slightly off-white, bright */
-     margin-top: 1.5rem; /* Space after the image */
-     line-height: 1.3;
-     text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* More pronounced shadow for title */
+     padding: 2rem;
+     min-height: 80vh;
    }
    
    /* Cover image styling */
    .cover-image {
-     max-width: 400px;
+     max-width: 500px;
      width: 100%;
      height: auto;
-     margin-bottom: 1.5rem;
+     margin-bottom: 2rem;
      border-radius: 2px;
      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
    }
    
    .status-text {
      font-family: 'Crimson Pro', serif;
-     font-size: 1.35rem; /* Adjusted size */
+     font-size: 1.35rem;
      font-style: italic;
-     color: #b0b0b0; /* More subtle grey */
-     margin-top: 1rem; /* Space from title */
+     color: #b0b0b0; /* Subtle grey */
+     margin-top: 1rem;
    }
    
    .fade-in {
      opacity: 0;
-     animation: fadeInAnimation ease 2.2s forwards; /* Slightly faster overall animation */
+     animation: fadeInAnimation ease 2.2s forwards;
    }
    
    @keyframes fadeInAnimation {
@@ -120,7 +115,7 @@
 </head>
 <body>
   <div class="content-wrapper">
-    <img src="interrogation.png" alt="Interrogation" class="cover-image fade-in delay-1">
+    <img src="css/Interrogation.png" alt="Interrogation" class="cover-image fade-in delay-1">
     <p class="status-text fade-in delay-2">querying</p>
   </div>
   
