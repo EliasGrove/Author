@@ -13,7 +13,7 @@
 </script>
 
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://js.hcaptcha.com https://*.hcaptcha.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://*.hcaptcha.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com; connect-src https://*.hcaptcha.com https://api.web3forms.com https://www.google-analytics.com https://stats.g.doubleclick.net; frame-src https://*.hcaptcha.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://js.hcaptcha.com https://*.hcaptcha.com https://substack.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://*.hcaptcha.com https://substack.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com https://substack.com; connect-src https://*.hcaptcha.com https://api.web3forms.com https://www.google-analytics.com https://stats.g.doubleclick.net https://substack.com; frame-src https://*.hcaptcha.com https://substack.com;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="no-referrer-when-downgrade">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -71,6 +71,40 @@
             border: 1px solid #444; /* Optional: adds a subtle border */
         }
 
+        /* Substack embed styling */
+        .substack-post-embed {
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgba(255, 255, 255, 0.05);
+            min-height: 200px;
+        }
+
+        .substack-post-embed p {
+            margin: 10px 0;
+            font-family: 'EB Garamond', serif;
+            color: #c0c0c0;
+        }
+
+        .substack-post-embed p:first-child {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .substack-post-embed a {
+            color: #c0c0c0;
+            text-decoration: none;
+            font-family: 'EB Garamond', serif;
+            transition: color 0.3s ease;
+        }
+
+        .substack-post-embed a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
         /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) { /* Adjust this breakpoint if needed */
             .image-with-caption.float-left,
@@ -110,61 +144,12 @@
             </header>
             
             <div class="single-post-content fade-in" style="animation-delay: 0.2s;">
-                <p>Google just dropped Veo 3, and the internet is losing its mind over how realistic the AI-generated videos look. We're talking full video with synchronized audio, dialogue, sound effects—the works. Do you know how much this will cost?</p>
-                
-                <p>50 cents per second.</p>
-                
-                <p>I'll do the math for you—that's $15 for a 30-second ad. That's not "chump change," that's petty cash.</p>
-                
-                <p>And sure, it probably won't get it right the first time, but even if it takes them an hour to get it all up to standard—that's still only $1,800. For a Fortune 500 company, that's an accounting error.</p>
-                
-                <p>Somewhere in a shiny corporate tower, a marketing executive is rubbing their palms like a little fly and drooling at the possibilities. We're talking about going from six or seven figures down to the cost of a decent lunch.</p>
-                
-                <p>When the savings are literally 99.99%+ of the budget, there's almost no financial justification for corporations not to use this.</p>
-                
-                <p>"Yes, Mr. CFO, I know the ad would only cost like $15 to make with AI, but think about Human Creativity! Think about human expression! We should, morally, absolutely spend months and hundreds of thousands of dollars recording a real ad that everyone will probably skip on YouTube, or get blocked by ad-blockers."</p>
-                
-                <p>It's not a matter of temptation—it will happen. The sooner we realize that, the better.</p>
-                
-                <h2>The Great Divide: David vs. Corporate</h2>
-                
-                <p>But these aren't scrappy startups trying to compete with limited resources. These aren't authors who don't have the thousands of dollars necessary to edit and market their book when they very likely will never see a return on that money. These aren't small indie studios trying to let their creativity finally be free from their monetary constraints.</p>
-                
-                <p>These are companies with marketing budgets that could fund small countries, choosing to pinch pennies at the expense of human creativity and employment.</p>
-                
-                <p>I've been pretty vocal about supporting small creators and indie businesses using AI tools. And that's come at no little amount of grief sent my way.</p>
-                
-                <p>To me, AI is the great equalizer—leveling the playing field and giving the little guy access to capabilities that were once locked behind massive budgets and industry connections. Many times, purposefully inflating these prices to kill off the competition.</p>
-                
-                <p>A solo game developer using AI to generate concept art because they can't afford to commission a dozen pieces at $200 each? That's democratization of creativity.</p>
-                
-                <p>But McDonald's using Veo 3 to generate their next commercial instead of hiring actual actors, directors, and crew? To me, that's just corporate cost-cutting dressed up as innovation.</p>
-                
-                <p>The distinction matters because context is everything—when you have the resources to do right by creatives but choose not to, you're making a statement about what you value. And clearly, it's not the people whose work built your industry, or who will consume your products. It's shareholder value.</p>
-                
-                <p>What I find so confusing is watching the creative community tear each other apart over AI. The same people who should be directing their anger at corporations using AI, or AI corporations themselves for stealing their artwork, are instead going after indie creators trying to make their projects viable.</p>
-                
-                <p>I've seen small authors get absolutely demolished on social media for using AI-generated book covers. Review bombs, harassment campaigns, public shaming—all while major publishers are quietly testing AI for everything from cover design to manuscript editing.</p>
-                
-                <p>The hypocrisy is mind-boggling. It shows that the mob always goes after the easiest targets—individual creators they can shame into submission—while the real culprits, the corporations with actual power and budgets, go by untouched.</p>
-                
-                <h2>I'm Voting With My Wallet, And You Should Too</h2>
-                
-                <p>When a corporation chooses AI over human talent not out of necessity but profit maximization, that's a choice I'll respond to with my wallet. When it's time to buy whatever they're selling, I will look elsewhere.</p>
-                
-                <p>The tools aren't the problem—it's how they're being used and by whom. Google's Veo 3 is insanely impressive technology that could democratize video creation for independent creators who've never had access to professional production resources. But it's also a shortcut for greedy corporations to cut costs while maximizing shareholder returns.</p>
-                
-                <p>The same goes for other applications of AI. The key difference is intent, scale, and alternatives.</p>
-                
-                <p>We're about to see a flood of AI-generated advertising that most consumers won't be able to identify as AI. The technology isn't perfect still, but in less than five years it went from a jumbled mess to near indistinguishable. Soon, we won't be able to tell the difference.</p>
-                
-                <p>And while the creative community fights among itself over moral purity, corporations are quietly reshaping their industries.</p>
-                
-                <p>The question isn't whether AI will be used in advertising—it already is. The question is whether we'll reward companies that use it responsibly to enhance human creativity or those that use it to replace human workers entirely.</p>
-                
-                <p>For me, the answer is clear. Every purchase is a vote, and I'm not voting for the race to the bottom.</p>
-                
-                <p>The playing field is about to get a lot more interesting, and a lot more unfair. The least we can do is pay attention to who's playing which game.</p>
+                <div class="substack-post-embed">
+                    <p lang="en">Same Tool, Different Games by Elias Grove</p>
+                    <p>The AI Double Standard</p>
+                    <a data-post-link href="https://eliasgrove3.substack.com/p/why-you-absolutely-should-use-ai">Read on Substack</a>
+                </div>
+                <script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>
             </div>
 
             <nav class="single-post-navigation fade-in" style="animation-delay: 0.4s;">
