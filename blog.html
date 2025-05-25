@@ -25,20 +25,22 @@
     <link rel="stylesheet" href="shared_styles.css">
     <style>
         .substack-embed-container {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: var(--card-background, #1a1a1a);
-            border-radius: 12px;
-            border: 1px solid var(--border-color, #333);
+            margin: 1rem 0;
+            /* Remove padding and background to let Substack handle styling */
         }
         .featured-substack {
-            margin: 3rem 0;
+            margin: 2rem 0;
+            max-width: 600px;
         }
         .substack-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             margin: 2rem 0;
+        }
+        /* Let Substack embeds handle their own styling */
+        .substack-post-embed {
+            margin: 0;
         }
     </style>
 </head>
