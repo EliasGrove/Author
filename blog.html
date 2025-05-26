@@ -24,54 +24,312 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="shared_styles.css">
     <style>
-        .substack-embed-container {
-            margin: 1rem 0;
-            /* Remove padding and background to let Substack handle styling */
+        :root {
+            --background-dark: #0c0c0c;
+            --card-background: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --accent-color: #ff6b35;
+            --border-color: #333333;
+            --hover-background: #252525;
         }
-        .featured-substack {
-            margin: 2rem auto;
-            max-width: 750px;
-            display: flex;
-            justify-content: center;
-        }
-        .substack-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        /* Dark mode styling for Substack embeds */
-        .substack-post-embed {
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+            font-family: 'Crimson Pro', serif;
+            line-height: 1.6;
             margin: 0;
-            background-color: #1a1a1a !important;
-            border-radius: 8px;
-            padding: 1rem;
-            border: 1px solid #333;
+            padding: 0;
         }
-        .substack-post-embed p {
-            color: #ffffff !important;
-        }
-        .substack-post-embed a {
-            color: #ffffff !important;
-            background-color: #333 !important;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-        .substack-post-embed a:hover {
-            background-color: #444 !important;
-        }
-        /* Subscribe button styling */
-        .subscribe-container {
+
+        .blog-header h1 {
+            font-family: 'EB Garamond', serif;
+            font-size: 3rem;
+            font-weight: 700;
             text-align: center;
-            margin: 2rem 0;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
         }
+
+        /* Featured Post Styling */
+        .featured-post {
+            margin: 3rem auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .featured-post h2 {
+            font-family: 'EB Garamond', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .featured-card {
+            background: var(--card-background);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .featured-card-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #2c1810, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="40" fill="%23666">—</text></svg>') center/contain no-repeat;
+            opacity: 0.3;
+        }
+
+        .featured-card-content {
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .featured-card-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .featured-card-excerpt {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.5;
+        }
+
+        .featured-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .read-more-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background: #e55a2b;
+        }
+
+        /* Articles Grid */
+        .articles-section-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin: 3rem 0 2rem 0;
+            color: var(--text-primary);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding: 0 1rem;
+        }
+
+        .article-card {
+            background: var(--card-background);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent-color);
+        }
+
+        .article-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #2c1810, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card-image.ai-theme {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+        }
+
+        .article-card-image.career-theme {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+        .article-card-image.art-theme {
+            background: linear-gradient(135deg, #7c2d12, #92400e);
+        }
+
+        .article-card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">📝</text></svg>') center/contain no-repeat;
+        }
+
+        .article-card-image.ai-theme::before {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">🤖</text></svg>') center/contain no-repeat;
+        }
+
+        .article-card-image.career-theme::before {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">💼</text></svg>') center/contain no-repeat;
+        }
+
+        .article-card-image.art-theme::before {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">🎨</text></svg>') center/contain no-repeat;
+        }
+
+        .article-card-content {
+            padding: 1.5rem;
+        }
+
+        .article-card-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 0 0.75rem 0;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .article-card-excerpt {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.4;
+        }
+
+        .article-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        .article-date {
+            font-weight: 500;
+        }
+
+        .article-read-time {
+            opacity: 0.8;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 4rem auto;
+            max-width: 600px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .newsletter-section h3 {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .newsletter-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
         .subscribe-container iframe {
             max-width: 100%;
             border-radius: 8px;
-            border: 1px solid #333 !important;
+            border: 1px solid var(--border-color) !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .blog-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .featured-card-title {
+                font-size: 1.5rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .featured-card-image {
+                height: 200px;
+            }
+
+            .article-card-image {
+                height: 150px;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -89,36 +347,76 @@
     <main id="blog-section" class="main-content-section" style="padding-top: 0; background-color: var(--background-dark); background-image: none;">
         <div class="content-wrapper" style="padding-top: 6rem;">
             <header class="blog-header fade-in">
-    <h1>Read Me</h1>
-</header>
+                <h1>Read Me</h1>
+            </header>
 
-
-            <section class="featured-post fade-in" style="animation-delay: 0.2s; text-align: center;">
+            <section class="featured-post fade-in" style="animation-delay: 0.2s;">
                 <h2>Latest Article</h2>
-                <div class="substack-embed-container featured-substack" style="margin: 2rem auto;">
-                    <div class="substack-post-embed"><p lang="en">To Em-Dash or Not to Em-Dash—(--)—That Is the Question by Elias Grove</p><p>Never gonna give you up</p><a data-post-link href="https://eliasgrove3.substack.com/p/to-em-dash-or-not-to-em-dash-that">Read on Substack</a></div><script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>
-                </div>
+                <a href="https://eliasgrove3.substack.com/p/to-em-dash-or-not-to-em-dash-that" class="featured-card" target="_blank" rel="noopener noreferrer">
+                    <div class="featured-card-image">
+                        <!-- Placeholder for featured image -->
+                    </div>
+                    <div class="featured-card-content">
+                        <h3 class="featured-card-title">To Em-Dash or Not to Em-Dash—(--)—That Is the Question</h3>
+                        <p class="featured-card-excerpt">Never gonna give you up</p>
+                        <div class="featured-card-meta">
+                            <span class="article-date">6 hrs ago • Elias Grove</span>
+                            <span class="read-more-btn">Read Article</span>
+                        </div>
+                    </div>
+                </a>
             </section>
 
             <section class="articles-list-section fade-in" style="animation-delay: 0.4s;">
                 <h2 class="articles-section-title">Previous Articles</h2>
-                <div class="substack-grid">
-                    <div class="substack-embed-container">
-                        <div class="substack-post-embed"><p lang="en">Same Tool, Different Games by Elias Grove</p><p>The AI Double Standard</p><a data-post-link href="https://eliasgrove3.substack.com/p/why-you-absolutely-should-use-ai">Read on Substack</a></div><script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>
+                <div class="articles-grid">
+                    <a href="https://eliasgrove3.substack.com/p/why-you-absolutely-should-use-ai" class="article-card" target="_blank" rel="noopener noreferrer">
+                        <div class="article-card-image ai-theme">
+                            <!-- AI-themed background -->
+                        </div>
+                        <div class="article-card-content">
+                            <h3 class="article-card-title">Same Tool, Different Games</h3>
+                            <p class="article-card-excerpt">The AI Double Standard</p>
+                            <div class="article-card-meta">
+                                <span class="article-date">May 23 • Elias Grove</span>
+                                <span class="article-read-time">4 min read</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://eliasgrove3.substack.com/p/the-unopinionated-author" class="article-card" target="_blank" rel="noopener noreferrer">
+                        <div class="article-card-image career-theme">
+                            <!-- Career-themed background -->
+                        </div>
+                        <div class="article-card-content">
+                            <h3 class="article-card-title">The Unopinionated Author</h3>
+                            <p class="article-card-excerpt">Mind Your Career</p>
+                            <div class="article-card-meta">
+                                <span class="article-date">May 16 • Elias Grove</span>
+                                <span class="article-read-time">3 min read</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="substack-embed-container">
-                        <div class="substack-post-embed"><p lang="en">The Unopinionated Author by Elias Grove</p><p>Mind Your Career</p><a data-post-link href="https://eliasgrove3.substack.com/p/the-unopinionated-author">Read on Substack</a></div><script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>
-                    </div>
-
-                    <div class="substack-embed-container">
-                        <div class="substack-post-embed"><p lang="en">The Great Art Detox by Elias Grove</p><p>How Gen AI will save Art</p><a data-post-link href="https://eliasgrove3.substack.com/p/the-great-art-detox">Read on Substack</a></div><script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>
-                    </div>
+                    <a href="https://eliasgrove3.substack.com/p/the-great-art-detox" class="article-card" target="_blank" rel="noopener noreferrer">
+                        <div class="article-card-image art-theme">
+                            <!-- Art-themed background -->
+                        </div>
+                        <div class="article-card-content">
+                            <h3 class="article-card-title">The Great Art Detox</h3>
+                            <p class="article-card-excerpt">How Gen AI will save Art</p>
+                            <div class="article-card-meta">
+                                <span class="article-date">May 16 • Elias Grove</span>
+                                <span class="article-read-time">5 min read</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </section>
 
             <section class="newsletter-section fade-in" style="animation-delay: 0.6s;">
                 <h3>Subscribe to my Newsletter</h3>
+                <p>Get the latest articles delivered straight to your inbox</p>
                 <div class="subscribe-container">
                     <iframe src="https://eliasgrove3.substack.com/embed" width="480" height="320" style="border:1px solid #333; background:#1a1a1a;" frameborder="0" scrolling="no"></iframe>
                 </div>
@@ -179,6 +477,7 @@
                     el.style.animationDelay = (0.15 * (index + 1)) + 's';
                 }
             });
+            
             const nav = document.querySelector('nav');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
