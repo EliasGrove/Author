@@ -1,0 +1,184 @@
+# .github/workflows/update-blog.yml
+name: Update Blog from Substack
+
+on:
+  schedule:
+    # Run every day at 9 AM UTC (adjust timezone as needed)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allows manual triggering
+  push:
+    branches: [ main ] # Also run when you push changes
+
+jobs:
+  update-blog:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install rss-parser cheerio
+        
+    - name: Fetch Substack posts and update HTML
+      run: |
+        node << 'EOF'
+        const Parser = require('rss-parser');
+        const fs = require('fs');
+        const cheerio = require('cheerio');
+        
+        const parser = new Parser();
+        const SUBSTACK_RSS = 'https://eliasgrove3.substack.com/feed';
+        
+        async function updateBlog() {
+          try {
+            console.log('Fetching RSS feed...');
+            const feed = await parser.parseURL(SUBSTACK_RSS);
+            const posts = feed.items.slice(0, 10); // Get latest 10 posts
+            
+            console.log(`Found ${posts.length} posts`);
+            
+            // Read the current HTML file
+            const htmlContent = fs.readFileSync('blog.html', 'utf8');
+            const $ = cheerio.load(htmlContent);
+            
+            // Helper functions
+            function formatDate(dateString) {
+              const date = new Date(dateString);
+              const now = new Date();
+              const diffTime = Math.abs(now - date);
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              
+              if (diffDays === 1) return '1 day ago';
+              if (diffDays < 7) return `${diffDays} days ago`;
+              if (diffDays < 30) return `${Math.ceil(diffDays / 7)} weeks ago`;
+              
+              return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+              });
+            }
+            
+            function stripHtml(html) {
+              return cheerio.load(html).text();
+            }
+            
+            function getThemeClass(title, description) {
+              const text = (title + ' ' + description).toLowerCase();
+              if (text.includes('ai') || text.includes('artificial intelligence') || text.includes('machine learning')) {
+                return 'ai-theme';
+              }
+              if (text.includes('career') || text.includes('work') || text.includes('job') || text.includes('professional')) {
+                return 'career-theme';
+              }
+              if (text.includes('art') || text.includes('creative') || text.includes('design') || text.includes('aesthetic')) {
+                return 'art-theme';
+              }
+              return '';
+            }
+            
+            function estimateReadTime(content) {
+              const words = stripHtml(content).split(/\s+/).length;
+              const wordsPerMinute = 200;
+              const minutes = Math.ceil(words / wordsPerMinute);
+              return `${minutes} min read`;
+            }
+            
+            // Update featured post (most recent)
+            if (posts.length > 0) {
+              const featuredPost = posts[0];
+              const excerpt = stripHtml(featuredPost.contentSnippet || featuredPost.content || '').substring(0, 150) + '...';
+              const themeClass = getThemeClass(featuredPost.title, featuredPost.contentSnippet || '');
+              
+              const featuredHtml = `
+                <h2>Latest Article</h2>
+                <a href="${featuredPost.link}" class="featured-card" target="_blank" rel="noopener noreferrer">
+                  <div class="featured-card-image ${themeClass}">
+                    <!-- Placeholder for now - you can enhance this to extract images -->
+                  </div>
+                  <div class="featured-card-content">
+                    <h3 class="featured-card-title">${featuredPost.title}</h3>
+                    <p class="featured-card-excerpt">${excerpt}</p>
+                    <div class="featured-card-meta">
+                      <span class="article-date">${formatDate(featuredPost.pubDate)} • ${featuredPost.creator || 'Elias Grove'}</span>
+                      <span class="read-more-btn">Read Article</span>
+                    </div>
+                  </div>
+                </a>
+              `;
+              
+              $('.featured-post').html(featuredHtml);
+            }
+            
+            // Update articles grid (previous posts)
+            if (posts.length > 1) {
+              const previousPosts = posts.slice(1);
+              let articlesHtml = '';
+              
+              previousPosts.forEach(post => {
+                const excerpt = stripHtml(post.contentSnippet || post.content || '').substring(0, 100) + '...';
+                const themeClass = getThemeClass(post.title, post.contentSnippet || '');
+                const readTime = estimateReadTime(post.content || post.contentSnippet || '');
+                
+                articlesHtml += `
+                  <a href="${post.link}" class="article-card" target="_blank" rel="noopener noreferrer">
+                    <div class="article-card-image ${themeClass}">
+                      <!-- Placeholder for now -->
+                    </div>
+                    <div class="article-card-content">
+                      <h3 class="article-card-title">${post.title}</h3>
+                      <p class="article-card-excerpt">${excerpt}</p>
+                      <div class="article-card-meta">
+                        <span class="article-date">${formatDate(post.pubDate)} • ${post.creator || 'Elias Grove'}</span>
+                        <span class="article-read-time">${readTime}</span>
+                      </div>
+                    </div>
+                  </a>
+                `;
+              });
+              
+              $('.articles-grid').html(articlesHtml);
+            }
+            
+            // Add a comment with last update time
+            const now = new Date().toISOString();
+            $('head').append(`<!-- Last updated: ${now} -->`);
+            
+            // Write the updated HTML back to file
+            fs.writeFileSync('blog.html', $.html());
+            console.log('Blog updated successfully!');
+            
+          } catch (error) {
+            console.error('Error updating blog:', error);
+            process.exit(1);
+          }
+        }
+        
+        updateBlog();
+        EOF
+        
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Commit and push changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add blog.html
+        git commit -m "Auto-update blog with latest Substack posts"
+        git push
