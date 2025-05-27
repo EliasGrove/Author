@@ -102,7 +102,6 @@
            left: 0;
            right: 0;
            bottom: 0;
-           background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="40" fill="%23666">—</text></svg>') center/contain no-repeat;
            opacity: 0.3;
        }
 
@@ -213,19 +212,18 @@
            left: 0;
            right: 0;
            bottom: 0;
-           background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">📝</text></svg>') center/contain no-repeat;
        }
 
        .article-card-image.ai-theme::before {
-           background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">🤖</text></svg>') center/contain no-repeat;
+           content: '';
        }
 
        .article-card-image.career-theme::before {
-           background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">💼</text></svg>') center/contain no-repeat;
+           content: '';
        }
 
        .article-card-image.art-theme::before {
-           background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="30" fill="%23ffffff80">🎨</text></svg>') center/contain no-repeat;
+           content: '';
        }
 
        .article-card-content {
@@ -354,6 +352,7 @@
                <h2>Latest Article</h2>
                <a href="https://eliasgrove3.substack.com/p/the-ai-grandstanding" class="featured-card" target="_blank" rel="noopener noreferrer">
                    <div class="featured-card-image ai-theme">
+                       <img src="css/image.png" alt="The AI Grandstanding" style="width: 100%; height: 100%; object-fit: cover;">
                    </div>
                    <div class="featured-card-content">
                        <h3 class="featured-card-title">The AI Grandstanding</h3>
