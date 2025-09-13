@@ -209,6 +209,10 @@
            background: linear-gradient(135deg, #7c2d12, #1a1a1a);
        }
 
+       .article-card-image.political-theme {
+           background: linear-gradient(135deg, #dc2626, #991b1b);
+       }
+
        .article-card-image::before {
            content: '';
            position: absolute;
@@ -231,6 +235,10 @@
        }
 
        .article-card-image.business-theme::before {
+           content: '';
+       }
+
+       .article-card-image.political-theme::before {
            content: '';
        }
 
@@ -358,13 +366,13 @@
 
            <section class="featured-post fade-in" style="animation-delay: 0.2s;">
                <h2>Latest Article</h2>
-               <a href="https://substack.com/home/post/p-171016166" class="featured-card" target="_blank" rel="noopener noreferrer">
-                   <div class="featured-card-image business-theme">
-                       <img src="blog/corporations.jpg" alt="It's Just Business" style="width: 100%; height: 100%; object-fit: cover;">
+               <a href="https://open.substack.com/pub/eliasgrove3/p/the-last-centrist?r=5odpm0&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false" class="featured-card" target="_blank" rel="noopener noreferrer">
+                   <div class="featured-card-image political-theme">
+                       <img src="blog/82376463007-kns-charlie-kirk-utk-1.webp" alt="The Last Centrist" style="width: 100%; height: 100%; object-fit: cover;">
                    </div>
                    <div class="featured-card-content">
-                       <h3 class="featured-card-title">It's Just Business</h3>
-                       <p class="featured-card-excerpt">Corporations are not your friends</p>
+                       <h3 class="featured-card-title">The Last Centrist</h3>
+                       <p class="featured-card-excerpt">On finding the middle ground in a polarized world</p>
                        <div class="featured-card-meta">
                            <span class="article-date">Today • Elias Grove</span>
                            <span class="read-more-btn">Read Article</span>
@@ -376,6 +384,20 @@
            <section class="articles-list-section fade-in" style="animation-delay: 0.4s;">
                <h2 class="articles-section-title">Previous Articles</h2>
                <div class="articles-grid">
+                   <a href="https://substack.com/home/post/p-171016166" class="article-card" target="_blank" rel="noopener noreferrer">
+                       <div class="article-card-image business-theme">
+                           <img src="blog/corporations.jpg" alt="It's Just Business" style="width: 100%; height: 100%; object-fit: cover;">
+                       </div>
+                       <div class="article-card-content">
+                           <h3 class="article-card-title">It's Just Business</h3>
+                           <p class="article-card-excerpt">Corporations are not your friends</p>
+                           <div class="article-card-meta">
+                               <span class="article-date">Dec 16 • Elias Grove</span>
+                               <span class="article-read-time">4 min read</span>
+                           </div>
+                       </div>
+                   </a>
+
                    <a href="https://eliasgrove3.substack.com/p/the-ai-grandstanding" class="article-card" target="_blank" rel="noopener noreferrer">
                        <div class="article-card-image ai-theme">
                            <img src="css/image.png" alt="The AI Grandstanding" style="width: 100%; height: 100%; object-fit: cover;">
