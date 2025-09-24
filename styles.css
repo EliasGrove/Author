@@ -1,12 +1,332 @@
-/* Fix for the truncated button styles */
+/* ROOT VARIABLES - Color consistency fixes */
+:root {
+    /* Primary colors with sRGB specification for consistency */
+    --primary-bg: color(srgb 0.071 0.071 0.071); /* #121212 */
+    --primary-text: color(srgb 0.949 0.949 0.949); /* #f2f2f2 */
+    --accent-color: color(srgb 0.800 0.647 0.400); /* #cc9966 */
+    --hover-accent-color: color(srgb 0.867 0.733 0.467); /* #ddb877 */
+    --button-bg: color(srgb 0.149 0.149 0.149); /* #262626 */
+    --button-hover-bg: color(srgb 0.200 0.200 0.200); /* #333333 */
+    
+    /* Fallback colors for older browsers */
+    --primary-bg-fallback: #121212;
+    --primary-text-fallback: #f2f2f2;
+    --accent-color-fallback: #cc9966;
+    --hover-accent-color-fallback: #ddb877;
+    --button-bg-fallback: #262626;
+    --button-hover-bg-fallback: #333333;
+}
+
+/* Color consistency across different displays */
+* {
+    color-rendering: optimizeQuality;
+    -webkit-color-rendering: optimizeQuality;
+}
+
+/* Support for different color gamuts */
+@media (color-gamut: srgb) {
+    :root {
+        --primary-bg: #121212;
+        --primary-text: #f2f2f2;
+        --accent-color: #cc9966;
+        --hover-accent-color: #ddb877;
+        --button-bg: #262626;
+        --button-hover-bg: #333333;
+    }
+}
+
+@media (color-gamut: p3) {
+    :root {
+        --primary-bg: color(display-p3 0.071 0.071 0.071);
+        --primary-text: color(display-p3 0.949 0.949 0.949);
+        --accent-color: color(display-p3 0.800 0.647 0.400);
+        --hover-accent-color: color(display-p3 0.867 0.733 0.467);
+        --button-bg: color(display-p3 0.149 0.149 0.149);
+        --button-hover-bg: color(display-p3 0.200 0.200 0.200);
+    }
+}
+
+/* RESPONSIVE BACKGROUND IMAGE SOLUTION */
+/* Your image is 2000x1566 (aspect ratio ~1.28:1) */
+
+#landing-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--primary-bg-fallback, var(--primary-bg));
+    
+    /* Base background settings */
+    background-image: url('css/your-landing-background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    /* Default for large screens (desktop) */
+    background-size: cover;
+    background-position: center center;
+}
+
+/* Desktop and large tablets (landscape) */
+@media screen and (min-width: 1024px) {
+    #landing-section {
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+    }
+}
+
+/* Medium tablets and small laptops */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+    #landing-section {
+        background-size: cover;
+        background-position: center center;
+        background-attachment: scroll; /* Better performance on tablets */
+    }
+}
+
+/* Mobile phones (portrait) */
+@media screen and (max-width: 767px) {
+    #landing-section {
+        background-size: cover;
+        background-position: center center;
+        background-attachment: scroll;
+        min-height: 100svh; /* Use small viewport height for mobile */
+    }
+}
+
+/* Ultra-wide screens */
+@media screen and (min-width: 1920px) {
+    #landing-section {
+        background-size: 100% auto; /* Show full width, crop height if needed */
+        background-position: center center;
+    }
+}
+
+/* Very tall screens (portrait orientation on larger screens) */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    #landing-section {
+        background-size: auto 100%; /* Show full height, crop width if needed */
+        background-position: center center;
+        min-height: 100vh;
+    }
+}
+
+/* Specific handling for common mobile breakpoints */
+@media screen and (max-width: 480px) {
+    #landing-section {
+        background-size: cover;
+        background-position: center 30%; /* Adjust focal point for mobile */
+        padding: 2rem 1rem;
+    }
+}
+
+/* iPhone and similar aspect ratios */
+@media screen and (max-width: 414px) and (max-height: 896px) {
+    #landing-section {
+        background-size: cover;
+        background-position: center 25%;
+        min-height: 100vh;
+        min-height: 100svh;
+    }
+}
+
+/* Section overlay for consistent text readability */
+.section-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(18, 18, 18, 0.3) 0%,
+        rgba(18, 18, 18, 0.2) 50%,
+        rgba(18, 18, 18, 0.4) 100%
+    );
+    z-index: 1;
+}
+
+/* Content wrapper positioning */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.content-wrapper.text-center {
+    text-align: center;
+}
+
+/* Typography with enhanced contrast for all displays */
+.page-header h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--primary-text-fallback, var(--primary-text));
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.02em;
+}
+
+.page-header p {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    color: var(--accent-color-fallback, var(--accent-color));
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.author-quote {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    color: var(--primary-text-fallback, var(--primary-text));
+    max-width: 600px;
+    margin: 2rem auto 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    line-height: 1.6;
+}
+
+/* Fade-in animation */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Navigation styles (basic responsive nav) */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: var(--primary-text-fallback, var(--primary-text));
+    text-decoration: none;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--accent-color-fallback, var(--accent-color));
+}
+
+/* Mobile navigation */
+@media screen and (max-width: 768px) {
+    nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+}
+
+/* Footer styles */
+footer {
+    background-color: var(--primary-bg-fallback, var(--primary-bg));
+    color: var(--primary-text-fallback, var(--primary-text));
+    padding: 2rem 0 1rem;
+    margin-top: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.footer-nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+}
+
+.footer-nav ul li a {
+    color: var(--primary-text-fallback, var(--primary-text));
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-nav ul li a:hover {
+    color: var(--accent-color-fallback, var(--accent-color));
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-text-fallback, var(--primary-text));
+    transition: fill 0.3s ease;
+}
+
+.social-icon:hover {
+    fill: var(--accent-color-fallback, var(--accent-color));
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.footer-tagline {
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* Contact button styles (your existing styles with color fixes) */
 #contact button[type="submit"] {
-    background-color: var(--button-bg);
-    color: var(--primary-text);
+    background-color: var(--button-bg-fallback, var(--button-bg));
+    color: var(--primary-text-fallback, var(--primary-text));
     font-family: 'EB Garamond', serif;
     font-weight: 600;
     font-size: 1.1rem;
     padding: 0.75rem 2rem;
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--accent-color-fallback, var(--accent-color));
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
@@ -15,13 +335,13 @@
 }
 
 #contact button[type="submit"]:hover {
-    background-color: var(--button-hover-bg);
-    border-color: var(--hover-accent-color);
+    background-color: var(--button-hover-bg-fallback, var(--button-hover-bg));
+    border-color: var(--hover-accent-color-fallback, var(--hover-accent-color));
     transform: translateY(-3px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Adding styles specifically for the About page */
+/* About page styles (with background handling) */
 #about {
     position: relative;
     min-height: 100vh;
@@ -46,6 +366,7 @@
 #about p {
     font-size: 1.2rem;
     line-height: 1.7;
+    color: var(--primary-text-fallback, var(--primary-text));
 }
 
 @media (max-width: 768px) {
